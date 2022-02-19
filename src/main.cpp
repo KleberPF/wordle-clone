@@ -64,17 +64,12 @@ std::vector<LetterClass> processGuess(const std::string& correctWord, const std:
 	for (size_t i = 0; i < guessedWord.length(); i++)
 	{
 		if (guess[i] == LetterClass::WRONG) {
-			bool found = false;
 			for (size_t j = 0; j < guessedWord.length(); j++)
 			{
 				if (guessedWord[i] == correctWord[j] && guess[j] != LetterClass::RIGHT) {
-					found = true;
+					guess[i] = LetterClass::WRONG_POS;
 					break;
 				}
-			}
-
-			if (found) {
-				guess[i] = LetterClass::WRONG_POS;
 			}
 		}
 	}
