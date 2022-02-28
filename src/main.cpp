@@ -51,11 +51,13 @@ std::string getColoredWord(const std::string& word, std::vector<LetterClass> col
 std::vector<LetterClass> processGuess(const std::string& correctWord, const std::string& guessedWord)
 {
 	std::vector<LetterClass> guess;
+	std::vector<bool> lettersUsed(5, false);
 
 	for (size_t i = 0; i < guessedWord.length(); i++)
 	{
 		if (guessedWord[i] == correctWord[i]) {
 			guess.push_back(LetterClass::RIGHT);
+			lettersUsed[i] = true;
 		} else {
 			guess.push_back(LetterClass::WRONG);
 		}
@@ -66,8 +68,9 @@ std::vector<LetterClass> processGuess(const std::string& correctWord, const std:
 		if (guess[i] == LetterClass::WRONG) {
 			for (size_t j = 0; j < guessedWord.length(); j++)
 			{
-				if (guessedWord[i] == correctWord[j] && guess[j] != LetterClass::RIGHT) {
+				if (guessedWord[i] == correctWord[j] && !lettersUsed[j]) {
 					guess[i] = LetterClass::WRONG_POS;
+					lettersUsed[j] = true;
 					break;
 				}
 			}
@@ -97,7 +100,9 @@ int main()
 	std::mt19937 rng(dev());
 	std::uniform_int_distribution<std::mt19937::result_type> distWord(0, (int)possibleWords.size() - 1);
 
-	std::string correctWord = possibleWords[distWord(rng)];
+	//std::string correctWord = possibleWords[distWord(rng)];
+	std::string correctWord = "watch";
+	std::cout << correctWord << '\n';
 
 	while (true) {
 		std::string guessedWord;
