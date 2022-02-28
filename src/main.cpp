@@ -100,9 +100,7 @@ int main()
 	std::mt19937 rng(dev());
 	std::uniform_int_distribution<std::mt19937::result_type> distWord(0, (int)possibleWords.size() - 1);
 
-	//std::string correctWord = possibleWords[distWord(rng)];
-	std::string correctWord = "watch";
-	std::cout << correctWord << '\n';
+	std::string correctWord = possibleWords[distWord(rng)];
 
 	while (true) {
 		std::string guessedWord;
